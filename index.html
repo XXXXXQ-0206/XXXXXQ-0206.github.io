@@ -4,8 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="XQ's bilingual academic personal website: embodied intelligence, multimodal understanding, and agentic systems.">
-    <meta name="theme-color" content="#f9f8f4">
+    <meta id="theme-color" name="theme-color" content="#f9f8f4">
     <title>XQ. / Research Notebook</title>
+    <script>
+      (() => {
+        try {
+          const savedTheme = window.localStorage.getItem('xq-site-theme');
+          if (savedTheme === 'light' || savedTheme === 'dark') {
+            document.documentElement.dataset.theme = savedTheme;
+          }
+        } catch {
+          // Storage may be unavailable; CSS still follows the system preference.
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -19,7 +31,18 @@
           <a href="#education" data-i18n data-en="Education" data-zh="教育">Education</a>
           <a href="#contact" data-i18n data-en="Contact" data-zh="联系">Contact</a>
         </nav>
-        <button class="language-toggle" id="language-toggle" type="button" aria-pressed="false" aria-label="Switch to Chinese">中</button>
+        <div class="header-controls">
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+            <svg data-theme-icon="moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <svg data-theme-icon="sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden>
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+          </button>
+          <button class="language-toggle" id="language-toggle" type="button" aria-pressed="false" aria-label="Switch to Chinese">中</button>
+        </div>
       </header>
 
       <main id="main-content">
