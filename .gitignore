@@ -1,0 +1,6 @@
+.superpowers/
+.vscode/
+.idea/
+*.log
+*.png
+*.webm
