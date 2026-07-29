@@ -50,7 +50,7 @@ if (Test-Path -LiteralPath $scriptPath) {
   foreach ($term in @('localStorage', 'aria-pressed', 'document.documentElement.lang', 'dataset[language]')) {
     if ($script -notmatch [regex]::Escape($term)) { $failures.Add("Missing language-switch behavior: $term") }
   }
-  foreach ($term in @('themeStorageKey', 'applyTheme', 'updateThemeControl', 'window.matchMedia', 'root.dataset.theme')) {
+  foreach ($term in @('themeStorageKey', 'applyTheme', 'updateThemeControl', 'window.matchMedia', 'root.dataset.theme', 'toggleAttribute')) {
     if ($script -notmatch [regex]::Escape($term)) { $failures.Add("Missing theme-switch behavior: $term") }
   }
 }
