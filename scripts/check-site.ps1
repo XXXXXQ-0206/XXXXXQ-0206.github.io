@@ -32,17 +32,26 @@ if (Test-Path -LiteralPath $htmlPath) {
     if ($html -notmatch [regex]::Escape($projectName)) { $failures.Add("Missing project: $projectName") }
   }
   if ($html -notmatch '38992488@qq\.com') { $failures.Add('Approved public email is missing from index.html.') }
+  foreach ($term in @('id="theme-toggle"', 'class="header-controls"', 'id="theme-color"', 'xq-site-theme', 'data-theme-icon="sun"', 'data-theme-icon="moon"')) {
+    if ($html -notmatch [regex]::Escape($term)) { $failures.Add("Missing theme markup contract: $term") }
+  }
 }
 if (Test-Path -LiteralPath $cssPath) {
   $css = Get-Content -Raw -LiteralPath $cssPath
   foreach ($term in @('prefers-color-scheme: dark', 'background-size: 28px 28px', '--display:', '--body:', '--mono:', 'prefers-reduced-motion')) {
     if ($css -notmatch [regex]::Escape($term)) { $failures.Add("Missing visual-system contract: $term") }
   }
+  foreach ($term in @(':root[data-theme="light"]', ':root[data-theme="dark"]', '.theme-toggle', '.header-controls')) {
+    if ($css -notmatch [regex]::Escape($term)) { $failures.Add("Missing explicit theme style: $term") }
+  }
 }
 if (Test-Path -LiteralPath $scriptPath) {
   $script = Get-Content -Raw -LiteralPath $scriptPath
   foreach ($term in @('localStorage', 'aria-pressed', 'document.documentElement.lang', 'dataset[language]')) {
     if ($script -notmatch [regex]::Escape($term)) { $failures.Add("Missing language-switch behavior: $term") }
+  }
+  foreach ($term in @('themeStorageKey', 'applyTheme', 'updateThemeControl', 'window.matchMedia', 'root.dataset.theme')) {
+    if ($script -notmatch [regex]::Escape($term)) { $failures.Add("Missing theme-switch behavior: $term") }
   }
 }
 
